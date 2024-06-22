@@ -1,12 +1,9 @@
 
-const LeaveModule = include("modules/leave-absence");
+const ThreadModule = include("modules/thread");
 
 
 module.exports = (app) => {
-
-
-  app.use("/api/leave-absence", LeaveModule.router);
-
-
+  app.use("/api/thread", ThreadModule.router);
+  
   // CMSModule(app);
 };
