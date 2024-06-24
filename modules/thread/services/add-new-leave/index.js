@@ -16,25 +16,14 @@ module.exports = async (params, validator, repository, cacheService) => {
       });
       return defer.promise;
     }
-    const {periodStartDate, periodEndDate} = validResult;
-    const startDate = new Date(periodStartDate);
-    const endDate = new Date(periodEndDate);
-    const durationInMilliseconds = endDate - startDate;
-    const durationInDays = Math.floor(durationInMilliseconds / (1000 * 60 * 60 * 24));
     let newData = {duration: durationInDays == 0 ? 1: durationInDays};
     
     
-
-
-
-
     
     newData = Object.assign(newData, validResult);
     const data = await repository.addNewThread(newData);
     defer.resolve(data);
   } catch (err) {
-
-    
     log.error("[SERVICE][EXECEPTION][Add New Thread] error", err);
     const { error, code } = errorsCodes.SERVER_ERROR;
     defer.resolve({
