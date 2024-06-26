@@ -16,9 +16,11 @@ module.exports = async (params, validator, repository, cacheService) => {
       });
       return defer.promise;
     }
+    // Use axios to crawl data from github.com Trending. 
+    // 
+    
+
     let newData = {duration: durationInDays == 0 ? 1: durationInDays};
-    
-    
     
     newData = Object.assign(newData, validResult);
     const data = await repository.addNewThread(newData);
