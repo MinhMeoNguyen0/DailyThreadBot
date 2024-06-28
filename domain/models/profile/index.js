@@ -7,4 +7,3 @@ Schema.index({
 });
 
 module.exports = mongoose.model("profile", Schema);
-s
