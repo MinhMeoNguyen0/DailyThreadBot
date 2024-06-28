@@ -1,7 +1,7 @@
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
 const { buildGraphAPIURL }  = include("common/utils");
-const config = require("./common/config");
+const config = include("common/config/");
 const { URLSearchParams } = require('url');
 
 const FIELD__THREADS_BIOGRAPHY = 'threads_biography';

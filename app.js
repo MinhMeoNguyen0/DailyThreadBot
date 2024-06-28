@@ -7,18 +7,26 @@ global.include = (localModule) => {
 
 const dotenv = require("dotenv");
 dotenv.config({ silent: true });
+
+
+
 const express = require("express");
-
-
+const bodyParser = require('body-parser');
 const path = require("path");
 // const mongoose = require("mongoose");
 const controllers = include("modules");
+
+
 const app = express();
+
 // const initQueue = require("./workers");
 
 app.set("views", path.join(__dirname, "views"));
-
+app.set('view engine', 'pug');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
 // mongoose.set("useCreateIndex", true);
 // mongoose.connect(config.db, { useNewUrlParser: true });
 
@@ -26,6 +34,7 @@ app.use(express.json());
 //   log.info("Database connected");
 //   app.emit("ready");
 // });
+
 
 controllers(app);
 app.emit("ready");

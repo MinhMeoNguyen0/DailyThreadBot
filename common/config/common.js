@@ -1,5 +1,7 @@
 const joi = require("joi");
 
+
+GRAPH_API_VERSION = process.env.GRAPH_API_VERSION;
 const envVarsSchema = joi
   .object({
     NODE_ENV: joi
