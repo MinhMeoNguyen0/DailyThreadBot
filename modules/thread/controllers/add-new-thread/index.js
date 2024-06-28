@@ -14,7 +14,7 @@ module.exports = async (req, res, service) => {
       return res.status(200).json({ data });
     }
   } catch (err) {
-    log.error("[CONTROLLER][EXECEPTION][Add New Thread] error", err);
+    //log.error("[CONTROLLER][EXECEPTION][Add New Thread] error", err);
     const { code, error } = errorsCodes.SERVER_ERROR;
 
     return res.status(code).json({

@@ -1,6 +1,9 @@
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
+const config = require("./common/config");
+const { URLSearchParams , URL} = require('url');
+const PARAMS__ACCESS_TOKEN = 'access_token';
 
 
 const isAxiosErrorResponse = err => {
@@ -74,3 +77,16 @@ exports.asyncForEach = async (array, callback) => {
     await callback(array[ index ], index, array);
   }
 };
+
+
+
+exports.buildGraphAPIURL = (path, searchParams, accessToken, base_url) => {
+  const url = new URL(path, base_url ?? config.common.graph_base_url);
+
+  url.search = new URLSearchParams(searchParams);
+  if (accessToken) {
+      url.searchParams.append(PARAMS__ACCESS_TOKEN, accessToken);
+  }
+  return url.toString();
+}
+
