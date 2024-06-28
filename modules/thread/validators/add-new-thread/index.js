@@ -16,7 +16,7 @@ module.exports = async (body) => {
   });
 
   if (result.error) {
-    log.error("[VALIDATION][EXECEPTION][Add New Thread] error:", result.error);
+    //log.error("[VALIDATION][EXECEPTION][Add New Thread] error:", result.error);
     defer.resolve({ error: result.error.message });
   } else {
     defer.resolve(result.value);
