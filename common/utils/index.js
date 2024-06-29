@@ -21,7 +21,7 @@ exports.isAxiosErrorResponse = isAxiosErrorResponse;
 
 
 exports.buildGraphAPIURL = (path, searchParams, accessToken, base_url) => {
-  const url = new URL(path, base_url ?? config.common.graph_base_url);
+  const url = new URL(path, base_url ?? config.graph_base_url);
 
   url.search = new URLSearchParams(searchParams);
   if (accessToken) {

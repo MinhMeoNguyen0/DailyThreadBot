@@ -19,26 +19,12 @@ if (error) {
 let host = envVars.HOST;
 let port = envVars.PORT;
 
-switch (common.env) {
-  case "production":
-    host = "http://localhost";
-    break;
-  case "development":
-    host = "http://localhost";
-    break;
-  case "local":
-    host = "http://localhost";
-    break;
-  default:
-    host = "http://localhost";
-    break;
-}
-
 let config = {
   server: {
     host,
-    port
-  }
+    port,
+    db: process.env.MONGODB_URL
+  },
 };
 
 module.exports = config;

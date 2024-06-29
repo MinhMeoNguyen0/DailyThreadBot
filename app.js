@@ -8,14 +8,13 @@ global.include = (localModule) => {
 const dotenv = require("dotenv");
 dotenv.config({ silent: true });
 
-
-
+const log = console;
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require("path");
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const controllers = include("modules");
-
+const config = include("common/config/");
 
 const app = express();
 
@@ -28,12 +27,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // mongoose.set("useCreateIndex", true);
-// mongoose.connect(config.db, { useNewUrlParser: true });
+// console.log(config.server.db);
+mongoose.connect(config.server.db);
 
-// mongoose.connection.once("open", () => {
-//   log.info("Database connected");
-//   app.emit("ready");
-// });
+mongoose.connection.once("open", () => {
+  log.info("Database connected");
+  app.emit("ready");
+});
 
 
 controllers(app);

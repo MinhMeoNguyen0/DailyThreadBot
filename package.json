@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "lodash": "^4.17.21",
     "mongoose": "^8.4.4",
     "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4",
     "pug": "^3.0.3",
     "q": "^1.5.1"
   }
