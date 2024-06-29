@@ -4,13 +4,12 @@ const ProfileModel = include("domain/models/profile");
 
 
 router.post("/add-new", controller.addNewThread);
-
-router.get("/callback", controller.getAccessToken)
+router.get("/intitialize", controller.getAccessToken)
 router.get("/me", 
     async (req, res) => {
         try {
-            const user = await ProfileModel.findOne(req.user._id).lean();
-            res.send(req.user)
+            const user = await ProfileModel.findOne();
+            res.send({body: user})
         }  
         catch (err) {
             res.send(err)
@@ -18,7 +17,5 @@ router.get("/me",
     }
 )
 
-
 // code gen
-
 module.exports = router;

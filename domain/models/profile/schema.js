@@ -2,22 +2,19 @@ const mongoose = require("mongoose");
 
 module.exports = new mongoose.Schema(
   {
-    user_id: {
+    thread_id: {
       type: String,
     },
-    thread_name: {
+    username: {
       type: String,
     },
-    bio: {
+    threads_profile_picture_url: {
       type: String,
     },
-    token_expiration: {
-      type: Date,
-    },
-    access_token: {
+    threads_biography: {
       type: String,
     },
-    gemini_token: {
+    user_profile_url: {
       type: String,
     },
   },

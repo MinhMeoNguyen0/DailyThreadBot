@@ -7,8 +7,8 @@ class ThreadService {
   static async addNewThread(params) {
     return services.addNewThread(params, validator, repository, cacheService);
   }
-  static async addNewProfile(params) {
-    return services.addNewThread(params, validator, repository, cacheService);
+  static async addNewProfile() {
+    return services.addNewProfile( validator, repository, cacheService);
   }
   // code gen
 }
