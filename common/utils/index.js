@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const config = include("common/config/");
 const { URLSearchParams , URL} = require('url');
-const PARAMS__ACCESS_TOKEN = 'access_token';
 
 
 const isAxiosErrorResponse = err => {
@@ -25,7 +24,7 @@ exports.buildGraphAPIURL = (path, searchParams, accessToken, base_url) => {
 
   url.search = new URLSearchParams(searchParams);
   if (accessToken) {
-      url.searchParams.append(PARAMS__ACCESS_TOKEN, accessToken);
+      url.searchParams.append(config.PARAMS__ACCESS_TOKEN, accessToken);
   }
   return url.toString();
 }

@@ -1,9 +1,12 @@
 const q = require("q");
+
 // const ThreadModel = include("domain/models/thread");
 
 module.exports = async (params) => {
+  
   const defer = q.defer();
   try {
+    
     
 
     // Get the thread API and then have the data to post by hand then configure

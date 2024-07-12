@@ -1,10 +1,12 @@
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
+const config = include("common/config/");
 
 module.exports = async (req, res, service) => {
-  const { body, user } = req;
   try {
-    let data = await service.addNewThread({ body, user });
+    const { body } = req;
+
+    let data = await service.uploadAndPublish({ body });
     if (data.error) {
       return res.status(data.code || errorsCodes.BAD_REQUEST).json({
         message: data.message,
