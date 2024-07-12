@@ -1,8 +1,5 @@
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
-const log = console;
-
-
 
 module.exports = async (req, res, service) => {
   try {

@@ -3,7 +3,7 @@ const router = require("express").Router();
 const ProfileModel = include("domain/models/profile");
 
 
-router.post("/add-new", controller.addNewThread);
+router.post("/add-new", controller.addSingleThread);
 router.get("/intitialize", controller.getAccessToken)
 router.get("/me", 
     async (req, res) => {

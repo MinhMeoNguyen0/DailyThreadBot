@@ -12,5 +12,9 @@ class ThreadRepository {
   static async getUserByToken() {
     return repositories.getUserByToken();
   }
+
+  static async getUserByThreadId() {
+    return repositories.getUserByThreadId();
+  }
 }
 module.exports = ThreadRepository;
