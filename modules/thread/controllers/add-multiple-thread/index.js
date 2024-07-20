@@ -7,7 +7,7 @@ module.exports = async (req, res, service) => {
   try {
     const access_token = config.access_token;
     const thread_user_id = config.thread_id;
-    const { text, media_type, image_url, } = req.query;
+    const { text, media_type, image_url } = req.query;
 
     console.log("[CONTROLLER][INFO] Adding Single Thread", req.query);
 
@@ -15,7 +15,7 @@ module.exports = async (req, res, service) => {
     const createContainerParams = {
       media_type: media_type,
       text,
-      is_carousel_item: false, // Default value for single thread posts
+      is_carousel_item: true, // Default value for single thread posts
     };
 
     if (media_type === 'IMAGE') {
@@ -33,7 +33,7 @@ module.exports = async (req, res, service) => {
     console.log("[CONTROLLER][INFO] Uploading Threads Media Url", uploadUrl);
 
 
-    let data = await service.uploadAndPublish({  uploadUrl, access_token });
+    let data = await service.uploadAndPublishMultiple({  uploadUrl, access_token });
     
     if (data.error) {
       return res.status(data.code || errorsCodes.BAD_REQUEST).json({

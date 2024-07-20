@@ -28,5 +28,6 @@ const config = {
   client_secret: process.env.API_SECRET,
   redirect_uri: process.env.REDIRECT_URI,
   access_token: process.env.ACCESS_TOKEN,
+  thread_id : process.env.THREAD_ID,
 };
 module.exports = config;
