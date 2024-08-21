@@ -8,7 +8,25 @@ const log = console;
 
 module.exports = async (params,repository) => {
   const defer = q.defer();
-  const { uploadUrl } = params;
+  const { text, media_type, image_url, access_token, thread_user_id } = params;
+
+  const createContainerParams = {
+    media_type: media_type,
+    text,
+    is_carousel_item: false, // Default value for single thread posts
+  };
+
+  if (media_type === 'IMAGE') {
+    createContainerParams.image_url = image_url;
+  } else if (media_type === 'VIDEO') {
+    createContainerParams.video_url = image_url;
+  }
+  const uploadUrl = buildGraphAPIURL(
+    `${thread_user_id}/threads`,
+    { ...createContainerParams, 
+      access_token }
+  );
+
 
   try {
     // Step 1: Create a Threads Media Container
@@ -25,12 +43,14 @@ module.exports = async (params,repository) => {
     const publishUrl = buildGraphAPIURL(
       `${config.thread_id}/threads_publish`,
       { creation_id: containerId,
-        access_token: config.access_token }
+        access_token: access_token }
     );
 
     console.log("[SERVICE][INFO] Publishing Threads Media Container: getting publish URL", publishUrl);
 
     const publishResponse = await axios.post(publishUrl, {});
+
+    // const repoData = repository.add(p)
 
     console.log("[SERVICE][INFO] Threads Media Published with ID: MEO MEO", publishResponse.data.id);
 

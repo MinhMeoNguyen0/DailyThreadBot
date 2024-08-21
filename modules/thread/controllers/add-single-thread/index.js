@@ -6,35 +6,17 @@ const { buildGraphAPIURL } = include("common/utils");
 module.exports = async (req, res, service) => {
   try {
     const access_token = config.access_token;
-    const thread_user_id = config.thread_id;
+    const thread_user_id = config.thread_id; // Change this to your thread ID
     const { text, media_type, image_url, } = req.query;
 
     console.log("[CONTROLLER][INFO] Adding Single Thread", req.query);
 
-
-    const createContainerParams = {
-      media_type: media_type,
-      text,
-      is_carousel_item: false, // Default value for single thread posts
-    };
-
-    if (media_type === 'IMAGE') {
-      createContainerParams.image_url = image_url;
-    } else if (media_type === 'VIDEO') {
-      createContainerParams.video_url = image_url;
+    // console.log("[CONTROLLER][INFO] Uploading Threads Media Url", uploadUrl);
+    const queryParams = {
+      text, media_type, image_url, access_token, thread_user_id
     }
-    const uploadUrl = buildGraphAPIURL(
-      `${thread_user_id}/threads`,
-      { ...createContainerParams, 
-        access_token }
-    );
-
-
-    console.log("[CONTROLLER][INFO] Uploading Threads Media Url", uploadUrl);
-
-
-    let data = await service.uploadAndPublish({  uploadUrl, access_token });
-    
+    let data = await service.uploadAndPublish({...queryParams });
+  
     if (data.error) {
       return res.status(data.code || errorsCodes.BAD_REQUEST).json({
         message: data.message,

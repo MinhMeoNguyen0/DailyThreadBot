@@ -2,38 +2,22 @@ const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
 const config = include("common/config/");
 const { buildGraphAPIURL } = include("common/utils");
+import axios from 'axios';
 
 module.exports = async (req, res, service) => {
   try {
     const access_token = config.access_token;
     const thread_user_id = config.thread_id;
-    const { text, media_type, image_url } = req.query;
-
-    console.log("[CONTROLLER][INFO] Adding Single Thread", req.query);
 
 
-    const createContainerParams = {
-      media_type: media_type,
-      text,
-      is_carousel_item: true, // Default value for single thread posts
-    };
+    // const { text, media_type, image_url } = req.query;
 
-    if (media_type === 'IMAGE') {
-      createContainerParams.image_url = image_url;
-    } else if (media_type === 'VIDEO') {
-      createContainerParams.video_url = image_url;
-    }
-    const uploadUrl = buildGraphAPIURL(
-      `${thread_user_id}/threads`,
-      { ...createContainerParams, 
-        access_token }
-    );
+    // yse Axios to crawl github.com/trending
+
+    const crawlData = axios.get('https://api.github.com/trending');
 
 
-    console.log("[CONTROLLER][INFO] Uploading Threads Media Url", uploadUrl);
-
-
-    let data = await service.uploadAndPublishMultiple({  uploadUrl, access_token });
+    let data = await service.gitHubPost({  thread_user_id, access_token });
     
     if (data.error) {
       return res.status(data.code || errorsCodes.BAD_REQUEST).json({
