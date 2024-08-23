@@ -3,7 +3,6 @@ const config = include("common/config/");
 
 // Ensure log is defined
 const log = console;
-
 let port = config.server.port;
 const environment = config.env;
 app.listen(port, () => {
