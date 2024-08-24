@@ -26,10 +26,11 @@ const logger = morgan((tokens, req, res) => {
   const colorizeResponseTime = chalk.magenta(`(${responseTime})`);
 
   // Construct the log message
-  const logMessage = `${chalk.gray('->')} ${colorizeMethod} ${colorizeStatus} ${colorizeUrl}  ${colorizeResponseTime}`;
+  const logMessage = `${chalk.gray('->')}             ${colorizeMethod}         ${colorizeStatus}                   ${colorizeUrl}       ${colorizeResponseTime}`;
 
   // Return the formatted log message for Morgan to log
   return logMessage;
+  
 });
 
 module.exports = logger;

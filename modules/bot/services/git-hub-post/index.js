@@ -1,34 +1,23 @@
+const q = require("q");
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
-const config = include("common/config/");
-const { buildGraphAPIURL } = include("common/utils");
+const log = console;
 
-module.exports = async (params,reppository) => {
+module.exports = async ( params, repository) => {
+  const defer = q.defer();
   try {
-
-
-
-
-    // const { text, media_type, image_url } = req.query;
-    // yse Axios to crawl github.com/trending
-
-    let data = await service.uploadAndPublishMultiple({  thread_user_id, access_token });
-    
-    if (data.error) {
-      return res.status(data.code || errorsCodes.BAD_REQUEST).json({
-        message: data.message,
-        error: data.error,
-      });
-    } else {
-      return res.status(200).json({ data });
-    }
+  
+    defer.resolve({data: "Hi there"});
   } catch (err) {
-    console.error("[SERVICE][EXCEPTION][Git Hub Bot Post] error", err);
-    const { code, error } = errorsCodes.SERVER_ERROR;
-
-    return res.status(code).json({
+    log.error("[SERVICE][EXECEPTION][GitHub Post] error", err);
+    const { error, code } = errorsCodes.SERVER_ERROR;
+    defer.resolve({
       error,
       message: errorsMessages.SERVER_ERROR,
+      code,
     });
+    return defer.promise;
   }
+  return defer.promise;
 };
+

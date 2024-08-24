@@ -22,12 +22,11 @@ module.exports = async (  repository) => {
     const profile = await repository.findUserbyThreadId(user.userDetails.thread_id);
     if (!profile) {
     const data = await repository.addNewProfile({body: user.userDetails});
-    defer.resolve({data: new ProfileEntity(data)});
     }
     else {
       defer.resolve({data: profile, message: "user already exists"});
     }
-
+    defer.resolve({data: new ProfileEntity(data)});
   } catch (err) {
     log.error("[SERVICE][EXECEPTION][Add New Profile] error", err);
     const { error, code } = errorsCodes.SERVER_ERROR;
