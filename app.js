@@ -22,7 +22,7 @@ const config = include("common/config/");
 
 const app = express();
 
-// const initQueue = require("./workers");
+const initQueue = require("./workers");
 
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'pug');
@@ -42,6 +42,8 @@ mongoose.connection.once("open", () => {
   log.info("Database connected");
   app.emit("ready");
 });
+
+initQueue(app);
 
 
 controllers(app);

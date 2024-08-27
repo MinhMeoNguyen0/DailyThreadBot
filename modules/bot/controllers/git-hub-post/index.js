@@ -35,9 +35,10 @@ module.exports = async (req, res, service) => {
     const repoData = {
       repo_name: repoHREF.pop(),
       author: repoHREF.pop(),
-      language: repoLanguage
+      language: repoLanguage,
+      repoWebSiteExist: false,
+
     };
-    let repoWebSiteExist = false;
     const repoUrl = `https://github.com/${repoData.author}/${repoData.repo_name}`;
     repoData.repo_url = repoUrl;
     const repoREADME = await axios.get(`https://raw.githubusercontent.com/${repoData.author}/${repoData.repo_name}/master/README.md`);
@@ -56,7 +57,7 @@ module.exports = async (req, res, service) => {
     const $aboutRepo = $('.BorderGrid-cell', crawlRepo.data).first();
     const repoWebsite = $aboutRepo.find('a').attr('href');
     if (repoWebsite.length > 0 && !repoWebsite.includes('topics') && !repoWebsite.includes("readme")) {
-      repoWebSiteExist = true;
+      repoData.repoWebSiteExist = true;
       repoData.website = repoWebsite;
     }
     const forksCount = $('#repo-network-counter').text();
@@ -68,7 +69,7 @@ module.exports = async (req, res, service) => {
     repoData.about = about;
 
     
-    let data = await service.gitHubPost({ repoData, thread_user_id, access_token });
+    let data = await service.gitHubPost({ repoData,repoDescription, thread_user_id, access_token });
     
     if (data.error) {
       return res.status(data.code || errorsCodes.BAD_REQUEST).json({
