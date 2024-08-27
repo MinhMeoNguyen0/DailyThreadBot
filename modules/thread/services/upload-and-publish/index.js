@@ -10,10 +10,13 @@ module.exports = async (params,repository) => {
   const defer = q.defer();
   const { text, media_type, image_url, access_token, thread_user_id } = params;
 
+
+
+  // console.info("[SERVICE][INFO] Params", text);
+
   const createContainerParams = {
-    media_type: media_type,
+    media_type: media_type ? media_type : 'TEXT', // Default value : ,
     text,
-    is_carousel_item: false, // Default value for single thread posts
   };
 
   if (media_type === 'IMAGE') {
@@ -27,16 +30,17 @@ module.exports = async (params,repository) => {
       access_token }
   );
 
+  // console.log("[SERVICE][INFO] Uploading Media to Threads", uploadUrl);
 
   try {
     // Step 1: Create a Threads Media Container
-    console.log("[SERVICE][INFO] Creating Threads Media Container");
+    // console.log("[SERVICE][INFO] Creating Threads Media Container");
 
     const createContainerResponse = await axios.post(uploadUrl,{});
     const containerId = createContainerResponse.data.id;
 
 
-    console.log("[SERVICE][INFO] Media Container Created with ID:", containerId);
+    // console.log("[SERVICE][INFO] Media Container Created with ID:", containerId);
 
     // Step 2: Publish the Threads Media Container
 
@@ -46,16 +50,16 @@ module.exports = async (params,repository) => {
         access_token: access_token }
     );
 
-    console.log("[SERVICE][INFO] Publishing Threads Media Container: getting publish URL", publishUrl);
+    // console.log("[SERVICE][INFO] Publishing Threads Media Container: getting publish URL", publishUrl);
 
     const publishResponse = await axios.post(publishUrl, {});
 
     // const repoData = repository.add(p)
+    
+    // console.log("[SERVICE][INFO] Threads Media Published with ID: MEO MEO", publishResponse.data.id);
 
-    console.log("[SERVICE][INFO] Threads Media Published with ID: MEO MEO", publishResponse.data.id);
-
-    defer.resolve({ data: publishResponse.data });
-    // defer.resolve(publishResponse.data);
+    // defer.resolve({ data: publishResponse?.data ? publishResponse.data : '' });
+    defer.resolve(publishResponse? publishResponse.data : '');
   } catch (err) {
     log.error("[SERVICE][EXCEPTION][Upload and Publish] error", err);
     const { error, code } = errorsCodes.SERVER_ERROR;

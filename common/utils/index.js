@@ -23,7 +23,7 @@ exports.buildGraphAPIURL = (path, searchParams, accessToken, base_url) => {
   const url = new URL(path, base_url ?? config.graph_base_url);
   url.search = new URLSearchParams(searchParams);
   if (accessToken) {
-      url.searchParams.append(config.PARAMS__ACCESS_TOKEN, accessToken);
+      url.searchParams.append("access_token", accessToken);
   }
   return url.toString();
 }

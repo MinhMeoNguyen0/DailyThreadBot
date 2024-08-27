@@ -6,6 +6,8 @@ const ProfileModel = include("domain/models/profile");
 router.post("/add-new", controller.addSingleThread);
 router.post("/add-new-multiple", controller.addMultipleThread);
 router.get("/intitialize", controller.getAccessToken)
+router.get("/refresh-token", controller.refreshToken)
+
 router.get("/me", 
     async (req, res) => {
         try {

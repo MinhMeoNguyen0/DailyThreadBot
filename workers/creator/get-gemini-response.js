@@ -1,3 +1,4 @@
+
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
 // const GEMINIAI_API_KEY = process.env.GOOGLE_API_KEY;
@@ -10,7 +11,8 @@ const errorsMessages = include("modules/error/messages");
  * @param {Function} postThread - A function that posts a thread if GEMINI AI is successful.
  * @returns {Promise<number>} - Returns 200 if successful, 500 if there's an error.
  */
-module.exports = async function(params) {
+module.exports = async ( params ) => {
+    
     const { repoData, repoDescription } = params;
 
     const isExistPersonalWebsite = repoData => repoData?.repoWebSiteExist ? true : false
@@ -28,13 +30,14 @@ module.exports = async function(params) {
         repo_url: ${isExistPersonalWebsite(repoData)}
         Markdown Content: ${repoDescription} 
         You are a social media manager for a tech-focused Instagram Threads account, tasked with boosting the visibility of open-source projects. Craft a post about today's trending GitHub repository with these guidelines:
-        Highlight: Begin with the number of stars and forks (include emotes) and mention the @author and the programminglanguage they use.
-        Summary: Provide a brief, non-technical summary of the repository's key features or benefits, you can not bold or italicize the text, just normal text.
-        Link: Use the repository's personal website link if available; otherwise, include the raw GitHub link, no imbedded links, patse the link.
-        Length: Keep the post within 500 characters.
-        Engagement: Make the post engaging to encourage your audience to click the link.
-        Hashtag: Include one popular tech-related hashtag.
-        Accuracy: Ensure all details are accurate and avoid any fabricated information.
+        Highlight: Start with the number of stars and forks, using emoji representations. Mention the repository author and programming language.
+        Summary: Write a non-technical summary of the repository's key features or benefits at least 50 words.
+        Hashtag: Include a single popular tech-related hashtag at the end of the summary no need line needed.
+        Format: Only use plain text, numbers, and emojis. No bold, italics, or embedded content is possible—everything must be in plain text.
+        Link: Add the repository's website link if available, or the raw GitHub link, pasted at the end of the post.
+        Length: THE POST MUST BE UNDER 500 characters | YOU WILL BE FIRED IF IT'S OVER 500 CHARACTERS.
+        Engagement: Make the post engaging to encourage clicks on the link.
+        Accuracy: Ensure all information is correct and avoid fabrication.
     `;
     try {
         // Call GEMINI API
@@ -55,3 +58,4 @@ module.exports = async function(params) {
         return 500;
     }
 }
+

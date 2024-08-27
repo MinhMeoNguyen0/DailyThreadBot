@@ -5,7 +5,9 @@ class ThreadService {
   static async uploadAndPublish(params) {
     return services.uploadAndPublish(params,  repository );
   }
-
+  static async refreshToken(params) {
+    return services.refreshToken(params,  repository );
+  }
   static async uploadAndPublishMultiple(params) {
     return services.uploadAndPublishMultiple(params,  repository );
   }

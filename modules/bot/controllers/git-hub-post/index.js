@@ -5,9 +5,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 
-const MARKDOWN_WORLD_LIMIT = 5000;
 
-const { buildGraphAPIURL } = include("common/utils");
 
 module.exports = async (req, res, service) => {
   try {
@@ -16,8 +14,6 @@ module.exports = async (req, res, service) => {
 
 
     // const { text, media_type, image_url } = req.query;
-
-
 
 
 
@@ -43,8 +39,6 @@ module.exports = async (req, res, service) => {
     repoData.repo_url = repoUrl;
     const repoREADME = await axios.get(`https://raw.githubusercontent.com/${repoData.author}/${repoData.repo_name}/master/README.md`);
     const repoDescription = repoREADME.data;
-
-
     // console.info("[CONTROLLER][INFO] Repo Description", repoDescription.slice(0, repoDescription.length % MARKDOWN_WORLD_LIMIT));
     
 
@@ -72,7 +66,7 @@ module.exports = async (req, res, service) => {
     let data = await service.gitHubPost({ repoData,repoDescription, thread_user_id, access_token });
     
     if (data.error) {
-      return res.status(data.code || errorsCodes.BAD_REQUEST).json({
+      return res.status(500 || errorsCodes.BAD_REQUEST).json({
         message: data.message,
         error: data.error,
         code : errorsCodes.BAD_REQUEST

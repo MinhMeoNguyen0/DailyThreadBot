@@ -1,7 +1,7 @@
 const service = require("./service");
 const controllers = require("./controllers");
 
-class ThreadController {
+class BogController {
   static async gitHubPost(req, res) {
     controllers.gitHubPost(req, res, service);
   }
@@ -10,4 +10,4 @@ class ThreadController {
   // }
 }
 
-module.exports = ThreadController;
+module.exports = BogController;

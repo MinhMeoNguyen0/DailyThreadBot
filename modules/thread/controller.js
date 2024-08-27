@@ -11,6 +11,9 @@ class ThreadController {
   static async getAccessToken(req, res) {
     controllers.getAccessToken(req, res, service);
   }
+  static async refreshToken(req, res) {
+    controllers.refreshToken(req, res, service);
+  }
   // code gen
 }
 

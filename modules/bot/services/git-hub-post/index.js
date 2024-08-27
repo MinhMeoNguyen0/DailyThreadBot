@@ -3,8 +3,11 @@ const getGeminiResponse = require("../../../../workers/creator/get-gemini-respon
 
 const errorsCodes = include("modules/error/codes");
 const errorsMessages = include("modules/error/messages");
-const log = console;
+const ThreadService = include("modules/thread/service");
 
+
+
+const log = console;
 
 module.exports = async ( params, repository) => {
   const defer = q.defer();
@@ -12,11 +15,20 @@ module.exports = async ( params, repository) => {
     const { repoData,repoDescription, thread_user_id, access_token} = params;
 
 
-    
+    // Getting bot response
 
     const response = await getGeminiResponse({repoData, repoDescription});
-    if (response.error) {
-      log.error("[SERVICE][EXECEPTION][GitHub Post] Getting Gemini Response FAILED", response.message);
+
+
+    const x = response? response : ''
+    
+    
+    // log.info("[BOT][SERVICE][GIT HUB POST] Response", x);
+
+
+    
+    if (response.length === 0) {
+      log.error("[SERVICE][EXECEPTION][GitHub Post] Getting Gemini Response Failed No Thread", response);
       const { error, code } = errorsCodes.SERVER_ERROR;
       defer.resolve({
         error,
@@ -25,10 +37,10 @@ module.exports = async ( params, repository) => {
       });
       return defer.promise;
     }
-
+    const data = await ThreadService.uploadAndPublish({ thread_user_id, access_token, text: response.message });
     defer.resolve({
       error: false,
-      message: response,
+      data: {...data},
     });
   } catch (err) {
     log.error("[SERVICE][EXECEPTION][GitHub Post] error", err);
