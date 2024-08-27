@@ -1,14 +1,18 @@
 const services = require("./services");
-const validator = require("./validator");
 const repository = require("./repository");
-const cacheService = require("./cache");
 
 class ThreadService {
-  static async addNewThread(params) {
-    return services.addNewThread(params, validator, repository, cacheService);
+  static async uploadAndPublish(params) {
+    return services.uploadAndPublish(params,  repository );
+  }
+  static async refreshToken(params) {
+    return services.refreshToken(params,  repository );
+  }
+  static async uploadAndPublishMultiple(params) {
+    return services.uploadAndPublishMultiple(params,  repository );
   }
   static async addNewProfile() {
-    return services.addNewProfile( validator, repository, cacheService);
+    return services.addNewProfile( repository );
   }
   // code gen
 }
