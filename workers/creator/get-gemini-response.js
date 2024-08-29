@@ -30,7 +30,7 @@ module.exports = async ( params ) => {
         repo_url: ${isExistPersonalWebsite(repoData)}
         Markdown Content: ${repoDescription} 
         You are a social media manager for a tech-focused Instagram Threads account, tasked with boosting the visibility of open-source projects. Craft a post about today's trending GitHub repository with these guidelines:
-        Highlight: Start with the number of stars and forks, using emoji representations. Mention the repository author and programming language.
+        Highlight: Start with the number of stars and forks of the repository, with emojis. Mention the repository author and programming language.
         Summary: Write a non-technical summary of the repository's key features or benefits at least 50 words.
         Hashtag: Include a single popular tech-related hashtag at the end of the summary no need line needed.
         Format: Only use plain text, numbers, and emojis. No bold, italics, or embedded content is possible—everything must be in plain text.
