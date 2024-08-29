@@ -20,11 +20,6 @@ module.exports = async ( params, repository) => {
     const response = await getGeminiResponse({repoData, repoDescription});
 
 
-    const x = response? response : ''
-    
-    
-    // log.info("[BOT][SERVICE][GIT HUB POST] Response", x);
-
 
     
     if (response.length === 0) {
@@ -40,7 +35,7 @@ module.exports = async ( params, repository) => {
     const data = await ThreadService.uploadAndPublish({ thread_user_id, access_token, text: response.message });
     defer.resolve({
       error: false,
-      data: {...data},
+      data: {...data , response: response.message},
     });
   } catch (err) {
     log.error("[SERVICE][EXECEPTION][GitHub Post] error", err);
