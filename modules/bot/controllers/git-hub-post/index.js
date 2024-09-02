@@ -19,13 +19,19 @@ module.exports = async (req, res, service) => {
 
     // use Axios to crawl github.com/trending
 
+    // const crawlData = await axios.get('https://github.com/trending?since=weekly');
     const crawlData = await axios.get('https://github.com/trending');
 
     let $ = cheerio.load(crawlData.data);
     const $firstRepo = $('.Box-row', crawlData.data).first();
 
 
-    const repoHREF = $firstRepo.find('a').attr('href').split("%2F");
+  
+    const repoHREF = $firstRepo.find('a').eq(1).attr('href').split("%2F");;
+    
+    console.info("[CONTROLLER][INFO] Repo Description 1", repoHREF);
+    
+
     
     const repoLanguage = $firstRepo.find('span[itemprop="programmingLanguage"]').text().trim();
     const repoData = {
@@ -42,7 +48,7 @@ module.exports = async (req, res, service) => {
     // console.info("[CONTROLLER][INFO] Repo Description", repoDescription.slice(0, repoDescription.length % MARKDOWN_WORLD_LIMIT));
     
 
-
+    // Account for when they don't have a README OMG
 
 
 
@@ -61,6 +67,7 @@ module.exports = async (req, res, service) => {
     repoData.forks_count = forksCount;
     repoData.stars_count = starsCount;
     repoData.about = about;
+
 
     
     let data = await service.gitHubPost({ repoData,repoDescription, thread_user_id, access_token });
